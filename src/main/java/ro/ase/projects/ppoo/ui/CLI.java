@@ -44,17 +44,17 @@ public class CLI {
         try {
             textStorage.load(collections);
             loaded = true;
-            System.out.println("Date incarcate din fisierele TEXT.");
+            System.out.println("Data loaded from text files");
         } catch (DataStorageException e) {
-            System.out.println("Fisierele TEXT nu au putut fi incarcate. Se incearca BINAR...");
+            System.out.println("Text file loading error: " + e.getMessage());
         }
 
         if (!loaded) {
             try {
                 binaryStorage.load(collections);
-                System.out.println("Date incarcate din fisierele BINARE.");
+                System.out.println("Data loaded from binary files");
             } catch (DataStorageException e) {
-                System.out.println("Eroare critica: nu s-au putut incarca datele.");
+                System.out.println("Error loading from binary files: " + e.getMessage());
             }
         }
     }
@@ -63,14 +63,14 @@ public class CLI {
         boolean running = true;
 
         while (running) {
-            System.out.println("\n=== MENIU E-BANKING ===");
+            System.out.println("\n=== E-BANKING MENU ===");
             System.out.println("1. Overview");
-            System.out.println("2. Lista conturi");
-            System.out.println("3. Detalii cont");
-            System.out.println("4. Adauga tranzactie");
-            System.out.println("5. Statistici");
-            System.out.println("0. Iesire si salvare");
-            System.out.print("Alege: ");
+            System.out.println("2. Accounts list");
+            System.out.println("3. Account details");
+            System.out.println("4. Add transaction");
+            System.out.println("5. Statistics");
+            System.out.println("0. Exit");
+            System.out.print("Enter: ");
 
             String opt = scanner.nextLine().trim();
 
@@ -81,14 +81,14 @@ public class CLI {
                 case "4" -> addTransaction();
                 case "5" -> printStatistics();
                 case "0" -> running = false;
-                default -> System.out.println("Optiune invalida.");
+                default -> System.out.println("Invalid option");
             }
         }
     }
 
     private void printOverview() {
-        System.out.println("\nConturi: " + collections.getAccounts().size());
-        System.out.println("Tranzactii: " + collections.getAllTransactions().size());
+        System.out.println("\nAccounts: " + collections.getAccounts().size());
+        System.out.println("Transactions: " + collections.getAllTransactions().size());
     }
 
     private void printAccounts() {
@@ -100,12 +100,12 @@ public class CLI {
     }
 
     private void printAccountDetails() {
-        System.out.print("ID cont: ");
+        System.out.print("Account ID: ");
         String id = scanner.nextLine();
 
         Account acc = collections.findAccountById(id);
         if (acc == null) {
-            System.out.println("Cont inexistent.");
+            System.out.println("Inexistent account");
             return;
         }
 
@@ -113,7 +113,7 @@ public class CLI {
 
         List<Transaction> list = acc.getTransactions();
         if (list.isEmpty()) {
-            System.out.println("(fara tranzactii)");
+            System.out.println("(without transactions)");
             return;
         }
 
@@ -123,22 +123,22 @@ public class CLI {
     }
 
     private void addTransaction() {
-        System.out.print("ID cont: ");
+        System.out.print("Account ID: ");
         String id = scanner.nextLine();
 
         Account acc = collections.findAccountById(id);
         if (acc == null) {
-            System.out.println("Cont inexistent.");
+            System.out.println("Inexistent account");
             return;
         }
 
-        System.out.print("Tip (DEPOSIT/WITHDRAW/PAYMENT/TRANSFER): ");
+        System.out.print("Type (DEPOSIT/WITHDRAW/PAYMENT/TRANSFER): ");
         String type = scanner.nextLine().trim().toUpperCase();
 
-        System.out.print("Suma: ");
+        System.out.print("Amount: ");
         double amount = Double.parseDouble(scanner.nextLine());
 
-        System.out.print("Data (yyyy-MM-dd) sau ENTER pentru acum: ");
+        System.out.print("Date (yyyy-MM-dd) or ENTER for now: ");
         String d = scanner.nextLine();
 
         LocalDate date = d.isEmpty()
@@ -150,19 +150,19 @@ public class CLI {
         Transaction t = new Transaction(tid, id, type, amount, date);
         collections.addTransaction(id, t);
 
-        System.out.println("Tranzactie adaugata.");
+        System.out.println("Added transaction: " + t);
     }
 
     private void printStatistics() {
         statistics.stats(collections);
 
-        System.out.println("\n=== STATISTICI ===");
+        System.out.println("\n=== STATISTICS ===");
         System.out.println("Total deposit: " + statistics.getTotalsPerType()[0]);
         System.out.println("Total withdraw: " + statistics.getTotalsPerType()[1]);
         System.out.println("Total payment: " + statistics.getTotalsPerType()[2]);
         System.out.println("Total transfer: " + statistics.getTotalsPerType()[3]);
 
-        System.out.println("Media: " + statistics.getAverageAmount());
+        System.out.println("Mean: " + statistics.getAverageAmount());
         System.out.println("Min: " + statistics.getMinAmount());
         System.out.println("Max: " + statistics.getMaxAmount());
     }
@@ -176,7 +176,7 @@ public class CLI {
             binaryStorage.generateReport(collections);
 
         } catch (DataStorageException e) {
-            System.out.println("Eroare la salvare: " + e.getMessage());
+            System.out.println("Error saving " + e.getMessage());
         }
     }
 }

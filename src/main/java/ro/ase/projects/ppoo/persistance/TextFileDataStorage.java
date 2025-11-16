@@ -1,7 +1,6 @@
 package ro.ase.projects.ppoo.persistance;
 
 import ro.ase.projects.ppoo.abstracts.AFileStorage;
-import ro.ase.projects.ppoo.enums.TransactionType;
 import ro.ase.projects.ppoo.model.Account;
 import ro.ase.projects.ppoo.model.Transaction;
 import ro.ase.projects.ppoo.services.Collections;
@@ -11,8 +10,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -110,13 +107,13 @@ public class TextFileDataStorage extends AFileStorage {
             List<Account> accounts = collections.getAccounts();
             List<Transaction> allTransactions = collections.getAllTransactions();
 
-            bw.write("=== RAPORT E-BANKING ===");
+            bw.write("=== E-BANKING REPORT ===");
             bw.newLine();
             bw.newLine();
 
-            bw.write("Numar conturi: " + accounts.size());
+            bw.write("Number of accounts: " + accounts.size());
             bw.newLine();
-            bw.write("Numar tranzactii: " + allTransactions.size());
+            bw.write("Number of transactions: " + allTransactions.size());
             bw.newLine();
             bw.newLine();
 

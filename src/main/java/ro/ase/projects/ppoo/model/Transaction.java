@@ -4,7 +4,6 @@ import ro.ase.projects.ppoo.enums.TransactionType;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Transaction implements Serializable {
     private String transactionId;
