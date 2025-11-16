@@ -1,0 +1,9 @@
+=== RAPORT E-BANKING ===
+
+Numar conturi: 25
+Numar tranzactii: 70
+
+Total DEPOSITS: 42054.06
+Total WITHDRAWS: 50057.98
+Total PAYMENTS: 38611.89
+Total TRANSFERS: 44078.72
