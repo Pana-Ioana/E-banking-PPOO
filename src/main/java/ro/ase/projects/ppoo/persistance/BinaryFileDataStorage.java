@@ -8,7 +8,6 @@ import ro.ase.projects.ppoo.services.Collections;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class BinaryFileDataStorage extends AFileStorage {
 
@@ -56,7 +55,7 @@ public class BinaryFileDataStorage extends AFileStorage {
             Object obj = ois.readObject();
             if (obj instanceof List<?>) {
                 List<?> raw = (List<?>) obj;
-                System.out.println("Am citit " + raw.size() + " tranzactii flat din fisierul binar.");
+                System.out.println("Read " + raw.size() + " transactions from binary file");
             }
         }
     }
@@ -81,13 +80,13 @@ public class BinaryFileDataStorage extends AFileStorage {
             List<Account> accounts = collections.getAccounts();
             List<Transaction> allTransactions = collections.getAllTransactions();
 
-            bw.write("=== RAPORT E-BANKING (BINAR) ===");
+            bw.write("=== BINARY E-BANKING REPORT ===");
             bw.newLine();
             bw.newLine();
 
-            bw.write("Numar conturi: " + accounts.size());
+            bw.write("Number of accounts: " + accounts.size());
             bw.newLine();
-            bw.write("Numar tranzactii: " + allTransactions.size());
+            bw.write("Number of transactions: " + allTransactions.size());
             bw.newLine();
             bw.newLine();
 
