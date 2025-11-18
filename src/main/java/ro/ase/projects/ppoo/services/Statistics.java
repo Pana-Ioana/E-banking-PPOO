@@ -3,6 +3,7 @@ package ro.ase.projects.ppoo.services;
 import ro.ase.projects.ppoo.enums.TransactionType;
 import ro.ase.projects.ppoo.model.Transaction;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Statistics {
@@ -14,6 +15,14 @@ public class Statistics {
     private double minAmount;
 
     public void stats(Collections collections) {
+        Arrays.fill(totalPerType, 0.0);
+        for (int i = 0; i < monthlyMatrix.length; i++) {
+            Arrays.fill(monthlyMatrix[i], 0);
+        }
+        averageAmount = 0.0;
+        minAmount = Double.MAX_VALUE;
+        maxAmount = Double.MIN_VALUE;
+
         List<Transaction> all = collections.getAllTransactions();
         if (all.isEmpty()) return;
 

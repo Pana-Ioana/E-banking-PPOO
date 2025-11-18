@@ -52,4 +52,7 @@ public class Collections {
         }
         return all;
     }
+
+    public Collections() {
+    }
 }
